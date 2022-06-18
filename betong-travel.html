@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <style>
+        body {
+            font-family: 'Mitr', sans-serif;
+            min-height: 100vh;
+            max-width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(to right top, #7a11f7, #7e11f9, #8111fa, #8511fc, #8811fd, #8c11fe, #9110fe, #9510ff, #9b10ff, #a110ff, #a610ff, #ac10ff);
+        }
+
+        .select2-container--open {
+            z-index: 99999;
+        }
+
+        select option {
+            font-size: larger;
+        }
+
+        .container {
+            /* width: 100%; */
+            max-width: 800px;
+            /* margin: 0 auto; */
+        }
+
+        body.swal2-shown>[aria-hidden="true"] {
+            transition: 0.1s filter;
+            filter: blur(15px);
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- * Code html ของ Target Form เปลี่ยนได้เรื่อยๆ -->
+    <!-- ! แต่ id และ name ของช่องต่างๆใน master-section ห้ามเปลี่ยน -->
+    <div class="container-fluid">
+        <form id="mainForm" class="needs-validation" novalidate>
+            <div class="container my-4">
+                <section class="rounded-3 m-2 border border-2 shadow bg-light text-center">
+                    <img src="https://www.img.in.th/images/b817c5e0df884723c6ca7763cda35f46.png" alt="..." style="max-height: 100px;">
+                </section>
+                <section class="rounded-3 m-2 mt-4 p-3 border border-2 shadow bg-light" id="master-section">
+                    <div class="row justify-content-start">
+                        <div class="col-md-6 mt-3">
+                            <label for="ชื่อและนามสกุล">ชื่อ-สมาชิก</label>
+                            <input type="text" class="form-control" id="ชื่อและนามสกุล" name="ชื่อและนามสกุล" placeholder="ชื่อ-สมาชิก" required>
+                        </div>
+                        <div class="col-md-6 mt-3" hidden>
+                            <label for="บัตรประชาชน">หมายเลขบัตรประชาชน</label>
+                            <input type="text" class="form-control" id="บัตรประชาชน" name="บัตรประชาชน" placeholder="หมายเลขบัตรประชาชน">
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="โทรศัพท์">เบอร์โทร</label>
+                            <input type="text" class="form-control" id="โทรศัพท์" name="โทรศัพท์" placeholder="เบอร์โทร" required>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            การฉีดวัคซีน <br>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 1-2 แล้ว" name="การฉีดวัคซีน" id="vaccinated-1">
+                                <label class="form-check-label" for="vaccinated-1">
+                                    เข็มที่ 1-2 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 1-2-3 แล้ว" name="การฉีดวัคซีน" id="vaccinated-2">
+                                <label class="form-check-label" for="vaccinated-2">
+                                    เข็มที่ 1-2-3 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 4 แล้ว" name="การฉีดวัคซีน" id="vaccinated-3">
+                                <label class="form-check-label" for="vaccinated-3">
+                                    เข็มที่ 4 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="อื่นๆ" name="การฉีดวัคซีน" id="vacinated-other">
+                                <label class="form-check-label" for="vacinated-other">
+                                    อื่นๆ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="ผู้ติดตาม">ผู้ติดตาม</label>
+                            <input type="text" class="form-control" id="ผู้ติดตาม" name="ผู้ติดตาม" placeholder="ผู้ติดตาม">
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            การฉีดวัคซีน ผู้ติดตาม
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 1-2 แล้ว" name="การฉีดวัคซีน ผู้ติดตาม" id="follower-vacinated-1">
+                                <label class="form-check-label" for="follower-vacinated-1">
+                                    เข็มที่ 1-2 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 1-2-3 แล้ว" name="การฉีดวัคซีน ผู้ติดตาม" id="follower-vacinated-2">
+                                <label class="form-check-label" for="follower-vacinated-2">
+                                    เข็มที่ 1-2-3 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="เข็มที่ 4 แล้ว" name="การฉีดวัคซีน ผู้ติดตาม" id="follower-vacinated-3">
+                                <label class="form-check-label" for="follower-vacinated-3">
+                                    เข็มที่ 4 แล้ว
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="อื่นๆ" name="การฉีดวัคซีน ผู้ติดตาม" id="follower-vacinated-other">
+                                <label class="form-check-label" for="follower-vacinated-other">
+                                    อื่นๆ
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3 text-center">
+                            <img id="nation_id_preview" class="img-fluid rounded" style="max-width: 500px;">
+                        </div>
+                        <div class="col-md-6 mt-2 edit-pass">
+                            <button type="button" class="btn btn-success" id="change-pass-btn">เปลี่ยนรหัสผ่าน</button>
+                        </div>
+                        <div class="col-md-6 mt-3 edit-pass" style="display: none;">
+                            <label for="รหัสผ่าน">รหัสผ่าน</label>
+                            <input type="password" name="รหัสผ่าน" id="รหัสผ่าน" class="form-control" placeholder="ตั้งรหัสผ่านในการเข้าใช้ครั้งต่อไป" disabled>
+                            <div class="invalid-feedback">
+                                กรุณาใส่รหัสผ่าน
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="rounded-3 m-2 mt-4 p-3 border border-2 shadow bg-light" id="target-section">
+                    <div class="row justify-content-start">
+                        <div class="col-md-6 mt-3">
+                            Radio 1
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="กลุ่ม 1" name="Radio-1" id="Radio-1-1">
+                                <label class="form-check-label" for="Radio-1-1">
+                                    กลุ่ม 1
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="กลุ่ม 2" name="Radio-1" id="Radio-1-2">
+                                <label class="form-check-label" for="Radio-1-2">
+                                    กลุ่ม 2
+                                </label>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="radio" value="อื่นๆ" name="Radio-1" id="Radio-1-other">
+                                <label class="form-check-label" for="Radio-1-other">
+                                    อื่นๆ
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mt-3">
+                            Check <br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="x" id="Check-1" name="Check-1">
+                                <label class="form-check-label" for="Check-1">
+                                    Check 1
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="x" id="Check-2" name="Check-2">
+                                <label class="form-check-label" for="Check-2">
+                                    Check 2
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" value="x" id="Check-3" name="Check-3">
+                                <label class="form-check-label" for="Check-3">
+                                    Check 3
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label for="nation_id_new">บัตรประชาชน</label>
+                            <input type="file" class="form-control" id="nation_id_new" name="nation_id_new" placeholder="URL บัตรประชาชน" required>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <img id="nation_id_new_preview" class="img-fluid mt-2 rounded" style="max-width: 600px; display: none;">
+                        </div>
+                        <div class="col-md-12 mt-3">
+                            <label for="slip">สลิปธนาคาร</label>
+                            <input type="file" class="form-control" id="slip" name="slip" placeholder="URL บัตรประชาชน" required>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <img id="slip_preview" class="img-fluid mt-2 rounded" style="max-width: 600px; display: none;">
+                        </div>
+                        <div class="col-md-12 text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg" id="submit""">Submit</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const master_script_url = 'https://script.google.com/macros/s/AKfycbwinmLB485cPWgwzJ9cvHyc5h-Fq2_6QLhVumMxHUraVCF1OxHZdClE4irYzAH41c3mxA/exec'
+        const script_url = 'https://script.google.com/macros/s/AKfycbzvShVJC4GZzDu3gw8Br-z9xkmo2nxWyvfk3iI3nnwuWcHTNzMDogmCPuAjqLlbFkEF/exec'
+        var names
+        $(document).ready(function () {
+            $.LoadingOverlay("show", {
+                background: "rgba(122,17,247, 95)"
+            });
+            $('input[type="radio"]').change(function () {
+                let ele = $(this)
+                if ($(this).val() == 'อื่นๆ') {
+                    Swal.fire({
+                        title: 'กรุณากรอกข้อมูล ' + $(this).attr('name'),
+                        input: 'text',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'ยืนยัน',
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'ข้อมูลไม่ถูกต้อง'
+                            }
+                        }
+                    }).then((result) => {
+                        if (result.isDismissed) return ele.prop('checked', false)
+                        if (result.value) {
+                            let parent = ele.parent().clone()
+                            parent.find('input').val(result.value).attr('id', result.value)
+                            parent.find('label').attr('for', result.value).text(result.value)
+                            parent.insertBefore(ele.parent())
+                        }
+                    })
+                }
+            })
+            $.ajax({
+                url: master_script_url + '?opt=get_data_dropdown',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $.LoadingOverlay("hide");
+                    names = data.result
+                    names.unshift('อื่นๆ');
+                    show_name_dropdown();
+                },
+                error: function (data) {
+                    $.LoadingOverlay("hide");
+
+                    $('#result').html(data.result);
+                }
+            });
+        });
+        async function show_name_dropdown() {
+
+            const { value: namechoose } = await Swal.fire({
+                title: 'เลือกชื่อเพื่อค้นหา',
+                html:
+                    '<select class="select2" id="name_dropdown" name="name_dropdown"><option value="" disabled selected>เลือกชื่อเพื่อค้นหา</option>' +
+                    names.map(name => '<option value="' + name + '">' + name + '</option>').join('') + '</select>',
+                focusConfirm: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    $('.select2').select2({
+                        width: '100%',
+                        heifht: '3rem',
+                        placeholder: 'เลือกชื่อเพื่อค้นหา',
+                        theme: 'bootstrap-5'
+                    });
+                },
+                preConfirm: () => {
+                    return $('#name_dropdown').val()
+                }
+            })
+            if (namechoose) {
+                if (namechoose == 'อื่นๆ') {
+                    $('#ชื่อและนามสกุล').focus();
+                    $('.edit-pass').toggle()
+                    $('#รหัสผ่าน').attr('required', true).attr('disabled', false)
+                    return
+                }
+                const { value: req_pass } = await Swal.fire({
+                    title: 'รหัสผ่าน',
+                    html: '<input type="password" class="form-control form-control-lg text-center" id="req-password" name="req-password" placeholder="รหัสผ่าน" required>',
+                    focusConfirm: false,
+                    allowOutsideClick: false,
+                    preConfirm: () => {
+                        return $('#req-password').val()
+                    }
+                })
+                get_data_by_name(namechoose, req_pass);
+            }
+        }
+
+        function get_data_by_name(name, pass) {
+            $.LoadingOverlay("show", {
+                background: "rgba(122,17,247, 95)"
+            });
+            $.ajax({
+                url: script_url + '?opt=get_data_by_name&name=' + name + '&pass=' + pass,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log("🚀 ~ data", data)
+                    $.LoadingOverlay("hide");
+                    if (!data.result) return Swal.fire({
+                        icon: 'error',
+                        title: 'รหัสผ่านไม่ถูกต้อง',
+                        text: 'กรุณาตรวจสอบรหัสผ่านอีกครั้ง'
+                    }).then(() => {
+                        show_name_dropdown()
+                    })
+                    setData(data.result)
+                },
+                error: function (data) {
+                    $.LoadingOverlay("hide");
+                    console.log(data.result);
+                }
+            });
+        }
+        function setData(data) {
+            console.log("🚀 ~ data", data)
+            Object.keys(data).forEach(key => {
+                if (key == 'URL บัตรประชาชน') {
+                    $('#nation_id_new').removeAttr('required')
+                    return $('#nation_id_new_preview').attr('src', data[key]).show();
+                }
+                if (key == 'URL สลิปธนาคาร') {
+                    $('#slip_new').removeAttr('required')
+                    return $('#slip_preview').attr('src', data[key]).show();
+                }
+                if ($('input[name="' + key + '"]').attr('type') == 'radio') return $('input[name="' + key + '"][value="' + data[key] + '"]').prop('checked', true);
+                if ($('input[name="' + key + '"]').attr('type') == 'checkbox') return $('input[name="' + key + '"]').prop('checked', true);
+                $('#' + key).val(data[key])
+            });
+            $('#change-pass-btn').click(async function () {
+                const { value: newPass } = await Swal.fire({
+                    title: 'รหัสผ่านใหม่',
+                    html: '<input type="password" class="form-control form-control-lg text-center" id="new-password" name="new-password" placeholder="รหัสผ่านใหม่" required><br>' + '<input type="password" class="form-control form-control-lg text-center" id="new-password-confirm" name="new-password-confirm" placeholder="ยืนยันรหัสผ่านใหม่" required>',
+                    focusConfirm: false,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        $('#new-password').focus()
+                    },
+                    preConfirm: () => {
+                        return [$('#new-password').val(), $('#new-password-confirm').val()]
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: 'ยกเลิก',
+                    confirmButtonText: 'ยืนยัน'
+
+                })
+
+                if (newPass[0] != newPass[1]) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'รหัสผ่านไม่ตรงกัน',
+                        text: 'กรุณาตรวจสอบรหัสผ่านอีกครั้ง'
+                    }).then(() => {
+                        $('#change-pass-btn').click()
+                    })
+                } else {
+                    $.LoadingOverlay("show", {
+                        background: "rgba(122,17,247, 95)"
+                    });
+                    $.ajax({
+                        url: master_script_url + '?opt=change_pass&new_pass=' + newPass[0] + '&name=' + data['ชื่อและนามสกุล'],
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            $.LoadingOverlay("hide");
+                            if (data.result) {
+                                return Swal.fire({
+                                    icon: 'success',
+                                    title: 'เปลี่ยนรหัสผ่านเรียบร้อย',
+                                    timer: 1500
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'เปลี่ยนรหัสผ่านไม่สำเร็จ',
+                                    text: 'กรุณาตรวจสอบรหัสผ่านอีกครั้ง'
+                                }).then(() => {
+                                    $('#change-pass-btn').click()
+                                })
+                            }
+                        },
+                        error: function (data) {
+                            $.LoadingOverlay("hide");
+                            console.log(data.result);
+                        }
+                    });
+                }
+            })
+        }
+
+        var files = {}
+        $('#nation_id_new, #slip').on('change', function (e) {
+            let id = $(this).attr('id');
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onloadend = function (e) {
+                if (id == 'nation_id_new') {
+                    files['URL บัตรประชาชน'] = {}
+                    files['URL บัตรประชาชน'].data = e.target.result;
+                    files['URL บัตรประชาชน'].name = file.name;
+                    $('#nation_id_new_preview').attr('src', e.target.result).slideDown(500)
+                } else {
+                    files['URL สลิปธนาคาร'] = {}
+                    files['URL สลิปธนาคาร'].data = e.target.result;
+                    files['URL สลิปธนาคาร'].name = file.name;
+                    $('#slip_preview').attr('src', e.target.result).slideDown(500)
+                }
+            }
+            reader.readAsDataURL(file);
+        });
+        function onsubmit(e) {
+            e.preventDefault();
+            $.LoadingOverlay("show", {
+                background: "rgba(122,17,247, 95)"
+            });
+            let formData = $('#mainForm').serializeArray();
+            let data = {};
+            formData.forEach(function (item) {
+                data[item.name] = item.value;
+            });
+            data.files = JSON.stringify(files);
+            console.log("🚀 ~ data", data)
+
+            $.ajax({
+                url: script_url + '?opt=add_data',
+                type: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function (resdata) {
+                    let rowdata = resdata.row
+                    delete (data.files)
+                    Object.keys(rowdata).forEach(function (key) {
+                        data[key] = rowdata[key]
+                    })
+                    $.ajax({
+                        method: 'POST',
+                        url: master_script_url + '?opt=update_data',
+                        data: data,
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data)
+                            $.LoadingOverlay("hide");
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'บันทึกข้อมูลสำเร็จ',
+                            }).then(function (result) {
+                                location.reload();
+                            });
+
+                        },
+                        error: function (data) {
+                            console.log(data.result);
+                        }
+                    })
+
+                },
+                error: function (data) {
+                    $.LoadingOverlay("hide");
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'บันทึกข้อมูลไม่สำเร็จ',
+                        text: data.responseText
+                    });
+                }
+            });
+        }
+    </script>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        form.classList.add('was-validated')
+                        $(form).find(":invalid").first().focus();
+                    } else {
+
+                        onsubmit(event)
+                    }
+
+
+                }, false)
+            })
+        })()
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</body>
+
+</html>
