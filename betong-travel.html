@@ -213,7 +213,7 @@
                             <button class="btn btn-warning" type="button" id="slip2-change" style="display: none;">เปลี่ยนรูปสลิปธนาคาร</button>
                         </div>
                         <div class="col-md-12 text-center">
-                            <img id="slip2_preview" class="img-fluid mt-2 rounded" style="display: none;">
+                            <img id="slip_preview" class="img-fluid mt-2 rounded" style="display: none;">
                         </div>
                         <div class="col-md-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary btn-lg" id="submit">Submit</button>
@@ -509,9 +509,9 @@
                     $('#slip_preview').attr('src', e.target.result).slideDown(500)
                 }
                 else if(id == 'slip2') {
+                    files['URL สลิปธนาคาร 2'] = {}
                     files['URL สลิปธนาคาร 2'].data = e.target.result;
                     files['URL สลิปธนาคาร 2'].name = file.name;
-                    files['URL สลิปธนาคาร 2'] = {}
                     $('#slip2_preview').attr('src', e.target.result).slideDown(500)
                 }
             }
