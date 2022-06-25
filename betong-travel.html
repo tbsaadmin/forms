@@ -207,8 +207,16 @@
                         <div class="col-md-12 text-center">
                             <img id="slip_preview" class="img-fluid mt-2 rounded" style="display: none;">
                         </div>
+                        <div class="col-md-12 mt-3">
+                            <label for="slip2" class="old-slip2">สลิปธนาคาร 2</label>
+                            <input type="file" class="form-control old-slip2" id="slip2" name="slip2" placeholder="URL บัตรประชาชน" required>
+                            <button class="btn btn-warning" type="button" id="slip2-change" style="display: none;">เปลี่ยนรูปสลิปธนาคาร</button>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <img id="slip_preview" class="img-fluid mt-2 rounded" style="display: none;">
+                        </div>
                         <div class="col-md-12 text-center mt-4">
-                            <button type="submit" class="btn btn-primary btn-lg" id="submit""">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-lg" id="submit">Submit</button>
                         </div>
                         <input type="text" value="" id="ยอมรับ PDPA" name="ยอมรับ PDPA" hidden>
                     </div>
@@ -410,6 +418,12 @@
                     $('#slip').removeAttr('required').after(`<input id="${key}" name="${key}" value="${data[key].url}" hidden>`)
                     return $('#slip_preview').attr('src', data[key].thumbnail).show();
                 }
+                if (key == 'URL สลิปธนาคาร 2') {
+                    $('.old-slip2').hide()
+                    $('#slip2-change').show()
+                    $('#slip2').removeAttr('required').after(`<input id="${key}" name="${key}" value="${data[key].url}" hidden>`)
+                    return $('#slip2_preview').attr('src', data[key].thumbnail).show();
+                }
 
                 if ($('input[name="' + key + '"]').attr('type') == 'radio') return $('input[name="' + key + '"][value="' + data[key] + '"]').prop('checked', true);
                 if ($('input[name="' + key + '"]').attr('type') == 'checkbox') return $('input[name="' + key + '"]').prop('checked', true);
@@ -487,11 +501,18 @@
                     files['URL บัตรประชาชน'].data = e.target.result;
                     files['URL บัตรประชาชน'].name = file.name;
                     $('#nation_id_preview').attr('src', e.target.result).slideDown(500)
-                } else {
+                } 
+                else if(id == 'slip') {
                     files['URL สลิปธนาคาร'] = {}
                     files['URL สลิปธนาคาร'].data = e.target.result;
                     files['URL สลิปธนาคาร'].name = file.name;
                     $('#slip_preview').attr('src', e.target.result).slideDown(500)
+                }
+                else if(id == 'slip2') {
+                    files['URL สลิปธนาคาร 2'].data = e.target.result;
+                    files['URL สลิปธนาคาร 2'].name = file.name;
+                    files['URL สลิปธนาคาร 2'] = {}
+                    $('#slip2_preview').attr('src', e.target.result).slideDown(500)
                 }
             }
             reader.readAsDataURL(file);
