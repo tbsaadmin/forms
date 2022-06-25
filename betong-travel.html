@@ -134,7 +134,7 @@
                         </div>
                         <div class="col-md-12 mt-3">
                             <label for="nation_id" class="old-nation">บัตรประชาชน</label>
-                            <input type="file" class="form-control old-nation" id="nation_id" name="nation_id" placeholder="URL บัตรประชาชน" required>
+                            <input type="file" class="form-control old-nation file" id="nation_id" name="nation_id" placeholder="URL บัตรประชาชน" required>
                             <button class="btn btn-warning" type="button" id="nation-id-change" style="display: none;">เปลี่ยนรูปบัตรประชาชน</button>
                         </div>
                         <div class="col-md-12 text-center">
@@ -201,7 +201,7 @@
 
                         <div class="col-md-12 mt-3">
                             <label for="slip" class="old-slip">สลิปธนาคาร</label>
-                            <input type="file" class="form-control old-slip" id="slip" name="slip" placeholder="URL บัตรประชาชน" required>
+                            <input type="file" class="form-control old-slip file" id="slip" name="slip" placeholder="URL บัตรประชาชน" required>
                             <button class="btn btn-warning" type="button" id="slip-change" style="display: none;">เปลี่ยนรูปสลิปธนาคาร</button>
                         </div>
                         <div class="col-md-12 text-center">
@@ -209,7 +209,7 @@
                         </div>
                         <div class="col-md-12 mt-3">
                             <label for="slip2" class="old-slip2">สลิปธนาคาร 2</label>
-                            <input type="file" class="form-control old-slip2" id="slip2" name="slip2" placeholder="URL บัตรประชาชน" required>
+                            <input type="file" class="form-control old-slip2 file" id="slip2" name="slip2" placeholder="URL บัตรประชาชน" required>
                             <button class="btn btn-warning" type="button" id="slip2-change" style="display: none;">เปลี่ยนรูปสลิปธนาคาร</button>
                         </div>
                         <div class="col-md-12 text-center">
@@ -491,7 +491,7 @@
         }
 
         var files = {}
-        $('#nation_id, #slip').on('change', function (e) {
+        $('.file').on('change', function (e) {
             let id = $(this).attr('id');
             let file = e.target.files[0];
             let reader = new FileReader();
