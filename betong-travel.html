@@ -43,6 +43,10 @@
             transition: 0.1s filter;
             filter: blur(15px);
         }
+
+        .blur {
+            filter: blur(15px);
+        }
     </style>
     <title>Document</title>
 </head>
@@ -57,12 +61,12 @@
                     <img src="https://www.img.in.th/images/b817c5e0df884723c6ca7763cda35f46.png" alt="..." style="max-height: 100px;">
                 </section>
                 <section class="rounded-3 m-2 mt-4 p-3 border border-2 shadow bg-light" id="master-section">
-                    <div class="row justify-content-start">
+                    <div class="row justify-content-start p-2">
                         <div class="col-md-6 mt-3">
                             <label for="ชื่อและนามสกุล">ชื่อ-สมาชิก</label>
                             <input type="text" class="form-control" id="ชื่อและนามสกุล" name="ชื่อและนามสกุล" placeholder="ชื่อ-สมาชิก" required>
                         </div>
-                        <div class="col-md-6 mt-3" hidden>
+                        <div class="col-md-6 mt-3">
                             <label for="บัตรประชาชน">หมายเลขบัตรประชาชน</label>
                             <input type="text" class="form-control" id="บัตรประชาชน" name="บัตรประชาชน" placeholder="หมายเลขบัตรประชาชน">
                         </div>
@@ -128,8 +132,13 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-12 mt-3 text-center">
-                            <img id="nation_id_preview" class="img-fluid rounded" style="max-width: 500px;">
+                        <div class="col-md-12 mt-3">
+                            <label for="nation_id" class="old-nation">บัตรประชาชน</label>
+                            <input type="file" class="form-control old-nation" id="nation_id" name="nation_id" placeholder="URL บัตรประชาชน" required>
+                            <button class="btn btn-warning" type="button" id="nation-id-change" style="display: none;">เปลี่ยนรูปบัตรประชาชน</button>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <img id="nation_id_preview" class="img-fluid mt-2 rounded" style="display: none;">
                         </div>
                         <div class="col-md-6 mt-2 edit-pass">
                             <button type="button" class="btn btn-success" id="change-pass-btn">เปลี่ยนรหัสผ่าน</button>
@@ -189,16 +198,11 @@
                                 </label>
                             </div>
                         </div>
+
                         <div class="col-md-12 mt-3">
-                            <label for="nation_id_new">บัตรประชาชน</label>
-                            <input type="file" class="form-control" id="nation_id_new" name="nation_id_new" placeholder="URL บัตรประชาชน" required>
-                        </div>
-                        <div class="col-md-12 text-center">
-                            <img id="nation_id_new_preview" class="img-fluid mt-2 rounded" style="display: none;">
-                        </div>
-                        <div class="col-md-12 mt-3">
-                            <label for="slip">สลิปธนาคาร</label>
-                            <input type="file" class="form-control" id="slip" name="slip" placeholder="URL บัตรประชาชน" required>
+                            <label for="slip" class="old-slip">สลิปธนาคาร</label>
+                            <input type="file" class="form-control old-slip" id="slip" name="slip" placeholder="URL บัตรประชาชน" required>
+                            <button class="btn btn-warning" type="button" id="slip-change" style="display: none;">เปลี่ยนรูปสลิปธนาคาร</button>
                         </div>
                         <div class="col-md-12 text-center">
                             <img id="slip_preview" class="img-fluid mt-2 rounded" style="display: none;">
@@ -206,16 +210,50 @@
                         <div class="col-md-12 text-center mt-4">
                             <button type="submit" class="btn btn-primary btn-lg" id="submit""">Submit</button>
                         </div>
+                        <input type="text" value="" id="ยอมรับ PDPA" name="ยอมรับ PDPA" hidden>
                     </div>
                 </section>
             </div>
         </form>
     </div>
-
+    <div class="modal fade" id="pdpaConsent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">ข้อตกลงการใช้งานระบบ</h5>
+                    </div>
+                    <div class="modal-body">
+                        &emsp;&emsp;&emsp;&emsp;<strong>ข้อตกลงการใช้งานระบบ</strong>
+                        ข้าพเจ้า<strong>ยินยอม</strong>ในการ ให้สมาคมนักศึกษาเก่าพาณิชยศาสตร์และการบัญชี มหาวิทยาลัยธรรมศาสตร์ (ส.พ.บ.ธ.) <strong>เปิดเผยข้อมูลส่วนบุคคล</strong>ของข้าพเจ้า ให้<strong>สมาคมฯ</strong>
+                        หรือ<strong>พันธมิตรของสมาคมฯ</strong> เพื่อนำไปใช้ในการวิเคราะห์
+                        คัดสรรและนำเสนอผลิตภัณฑ์หรือบริการ กิจกรรมต่าง ๆ สิทธิประโยชน์
+                        รายการส่งเสริมการขาย หรือข้อเสนอต่าง ๆ ของสมาคมฯ หรือพันธมิตรนั้น
+                        <br><br>
+                        &emsp;&emsp;&emsp;&emsp;ทั้งนี้ ก่อนการแสดงเจตนา <strong>ข้าพเจ้าได้อ่านรายละเอียดจากเอกสารชี้แจงข้อมูล</strong> หรือได้รับคำอธิบายจาก ส.พ.บ.ธ. ถึงวัตถุประสงค์ในการเก็บรวบรวม ใช้หรือเปิดเผย (“ประมวลผล”) ข้อมูลส่วนบุคคล
+                        และ<strong>มีความเข้าใจดีแล้ว</strong>
+                        ข้าพเจ้าให้ความยินยอมหรือปฏิเสธไม่ให้ความยินยอมในเอกสารนี้ด้วยความสมัครใจ ปราศจากการบังคับหรือชักจูง และข้าพเจ้าทราบว่าข้าพเจ้าสามารถ<strong>ถอนความยินยอมนี้เสียเมื่อใดก็ได้</strong>
+                        เว้นแต่ในกรณีมีข้อจำกัดสิทธิตามกฎหมายหรือยังมีสัญญาระหว่างข้าพเจ้ากับ ส.พ.บ.ธ ที่ให้ประโยชน์แก่ข้าพเจ้าอยู่
+                        <br><br>
+                        &emsp;&emsp;&emsp;&emsp;กรณีที่ข้าพเจ้าประสงค์จะขอถอนความยินยอม ข้าพเจ้าทราบว่าการถอนความยินยอมจะมีผลทำให้ ข้าพเจ้าอาจได้รับ<strong>ความสะดวกในการใช้บริการน้อยลง</strong> หรือ
+                        <strong>ไม่สามารถเข้าถึงฟังก์ชันการใช้งานบางอย่าง</strong>ได้
+                        และข้าพเจ้าทราบว่าการถอนความยินยอมดังกล่าว
+                        <strong>ไม่มีผลกระทบต่อการประมวลผลข้อมูล</strong>ส่วนบุคคลที่ได้ดำเนินการเสร็จสิ้นไปแล้วก่อนการถอนความยินยอม
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="accept-btn" class="btn btn-primary">Accept</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        const master_script_url = 'https://script.google.com/macros/s/AKfycbwinmLB485cPWgwzJ9cvHyc5h-Fq2_6QLhVumMxHUraVCF1OxHZdClE4irYzAH41c3mxA/exec'
-        const script_url = 'https://script.google.com/macros/s/AKfycbzvShVJC4GZzDu3gw8Br-z9xkmo2nxWyvfk3iI3nnwuWcHTNzMDogmCPuAjqLlbFkEF/exec'
-        var names
+        const master_script_url = 'https://script.google.com/macros/s/AKfycbz4r0E50LlXuxPzEpp-DL7SZ05Bbs2YkuByqCPpiMzNrGtrwKHiJ9TSwI5LWAlxNOo/exec'
+        const script_url = 'https://script.google.com/macros/s/AKfycbxpxLv-0tq86rbPtuO3KCR96wVksSPyZC2Y4vdLvQojmSCwgjn6AJY1-MlUNQ3EOv4/exec'
+        // const master_script_url = 'https://script.google.com/macros/s/AKfycbwinmLB485cPWgwzJ9cvHyc5h-Fq2_6QLhVumMxHUraVCF1OxHZdClE4irYzAH41c3mxA/exec'
+        // const script_url = 'https://script.google.com/macros/s/AKfycbzvShVJC4GZzDu3gw8Br-z9xkmo2nxWyvfk3iI3nnwuWcHTNzMDogmCPuAjqLlbFkEF/exec'
+        var names, pdpa = false
         $(document).ready(function () {
             $.LoadingOverlay("show", {
                 background: "rgba(122,17,247, 95)"
@@ -247,6 +285,14 @@
                     })
                 }
             })
+            $('#nation-id-change').click(function () {
+                event.preventDefault()
+                $('#nation_id').click()
+            })
+            $('#slip-change').click(function () {
+                event.preventDefault()
+                $('#slip').click()
+            })
             $.ajax({
                 url: master_script_url + '?opt=get_data_dropdown',
                 type: 'GET',
@@ -263,6 +309,11 @@
                     $('#result').html(data.result);
                 }
             });
+            $('.modal').on('show.bs.modal', function () {
+                $('body').children().not(this).not('script').addClass('blur')
+            }).on('hide.bs.modal', function () {
+                $('body').children().removeClass('blur')
+            })
         });
         async function show_name_dropdown() {
 
@@ -280,28 +331,36 @@
                         placeholder: 'เลือกชื่อเพื่อค้นหา',
                         theme: 'bootstrap-5'
                     });
+                    $(document).on('select2:open', () => {
+                        document.querySelector('.select2-search__field').focus()
+                    })
                 },
                 preConfirm: () => {
                     return $('#name_dropdown').val()
                 }
             })
             if (namechoose) {
+                console.log("🚀 ~ namechoose", namechoose)
                 if (namechoose == 'อื่นๆ') {
                     $('#ชื่อและนามสกุล').focus();
                     $('.edit-pass').toggle()
                     $('#รหัสผ่าน').attr('required', true).attr('disabled', false)
+                    showPDPA()
                     return
                 }
                 const { value: req_pass } = await Swal.fire({
                     title: 'รหัสผ่าน',
                     html: '<input type="password" class="form-control form-control-lg text-center" id="req-password" name="req-password" placeholder="รหัสผ่าน" required>',
                     focusConfirm: false,
+                    allowEnterKey: true,
                     allowOutsideClick: false,
                     preConfirm: () => {
                         return $('#req-password').val()
                     }
                 })
                 get_data_by_name(namechoose, req_pass);
+            } else {
+                show_name_dropdown()
             }
         }
 
@@ -333,18 +392,28 @@
         }
         function setData(data) {
             console.log("🚀 ~ data", data)
+            if (!data['ยอมรับ PDPA'] || data['ยอมรับ PDPA'] != 'Accept') {
+                showPDPA()
+            }
+
             Object.keys(data).forEach(key => {
+
                 if (key == 'URL บัตรประชาชน') {
-                    $('#nation_id_new').removeAttr('required')
-                    return $('#nation_id_new_preview').attr('src', data[key]).show();
+                    $('.old-nation').hide()
+                    $('#nation-id-change').show()
+                    $('#nation_id').removeAttr('required')
+                    return $('#nation_id_preview').attr('src', data[key]).show();
                 }
                 if (key == 'URL สลิปธนาคาร') {
-                    $('#slip_new').removeAttr('required')
+                    $('.old-slip').hide()
+                    $('#slip-change').show()
+                    $('#slip').removeAttr('required')
                     return $('#slip_preview').attr('src', data[key]).show();
                 }
+
                 if ($('input[name="' + key + '"]').attr('type') == 'radio') return $('input[name="' + key + '"][value="' + data[key] + '"]').prop('checked', true);
                 if ($('input[name="' + key + '"]').attr('type') == 'checkbox') return $('input[name="' + key + '"]').prop('checked', true);
-                $('#' + key).val(data[key])
+                $('input[name="' + key + '"]').val(data[key])
             });
             $('#change-pass-btn').click(async function () {
                 const { value: newPass } = await Swal.fire({
@@ -408,16 +477,16 @@
         }
 
         var files = {}
-        $('#nation_id_new, #slip').on('change', function (e) {
+        $('#nation_id, #slip').on('change', function (e) {
             let id = $(this).attr('id');
             let file = e.target.files[0];
             let reader = new FileReader();
             reader.onloadend = function (e) {
-                if (id == 'nation_id_new') {
+                if (id == 'nation_id') {
                     files['URL บัตรประชาชน'] = {}
                     files['URL บัตรประชาชน'].data = e.target.result;
                     files['URL บัตรประชาชน'].name = file.name;
-                    $('#nation_id_new_preview').attr('src', e.target.result).slideDown(500)
+                    $('#nation_id_preview').attr('src', e.target.result).slideDown(500)
                 } else {
                     files['URL สลิปธนาคาร'] = {}
                     files['URL สลิปธนาคาร'].data = e.target.result;
@@ -483,6 +552,19 @@
                 }
             });
         }
+
+        function showPDPA() {
+            $('#pdpaConsent').modal('show')
+            $('#accept-btn').click(function () {
+                $('#pdpaConsent').modal('hide')
+                $('input[name="ยอมรับ PDPA"]').val('Accept')
+            })
+            $('#cancel-btn').click(function () {
+                $('#pdpaConsent').modal('hide')
+                location.reload()
+            })
+        }
+
     </script>
     <script>
         (() => {
